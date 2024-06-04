@@ -1,14 +1,14 @@
 <?php
 
 namespace App\Http\Controllers\Api;
-use App\Http\Controllers\Controller;
-use App\Models\Product;
 use App\Models\Seller;
+use App\Models\Product;
+use Illuminate\Support\Str;
 use App\Http\Traits\ResponseTrait;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\SellerRequest;
 use App\Http\Resources\SellerResource;
 use App\Http\Resources\ProductResource;
-use App\Http\Requests\SellerRequest;
-use Illuminate\Support\Str;
 
 class SellerController extends Controller
 {
@@ -19,7 +19,7 @@ class SellerController extends Controller
      */
     public function index()
     {
-        $sellers = Seller::with(['products', 'commissions', 'orderHeads'])->get();
+        $sellers = Seller::with(['products', 'orderHeads'])->get();
         $data    = SellerResource::collection($sellers);
 
         return $this->successResponse('sellers list', $data);
@@ -61,7 +61,7 @@ class SellerController extends Controller
      */
     public function show(string $id)
     {
-        $seller = Seller::whereId($id)->with(['products', 'commissions', 'orderHeads'])->first();
+        $seller = Seller::whereId($id)->with(['products', 'orderHeads'])->first();
 
         if ($seller){
             $data = new SellerResource($seller);

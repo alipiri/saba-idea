@@ -2,8 +2,8 @@
 
 namespace App\Http\Traits;
 
-use App\Models\OrderHead;
 use App\Models\User;
+use App\Models\OrderHead;
 
 trait OrderHeadTrait
 {
@@ -18,7 +18,7 @@ trait OrderHeadTrait
         ]);
     }
 
-    public function checkUser(string $email = '', string $mobile = '', string $name = '')
+    public function checkUser(string $email = null, string $mobile = null, string $name = '')
     {
         if ($email != '') {
             $user = User::firstOrCreate([

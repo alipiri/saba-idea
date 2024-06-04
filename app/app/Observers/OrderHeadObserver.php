@@ -2,8 +2,8 @@
 
 namespace App\Observers;
 
-use App\Http\FactoryMethod\NotificationFactory;
 use App\Models\OrderHead;
+use App\Http\FactoryMethod\NotificationFactory;
 
 class OrderHeadObserver
 {
@@ -15,16 +15,21 @@ class OrderHeadObserver
         $type = new NotificationFactory();
 
         $user = $orderHead->user;
+        
         if ($user) {
 
             if ($user->mobile != null) {
-                $type->sendNotification('sms', $user->mobile);
+                $action = $type->sendNotification('sms', $user->mobile);
             }
 
             if ($user->email != null) {
-                $type->sendNotification('email', $user->email);
+                $action = $type->sendNotification('email', $user->email);
             }
             
+            if ($action) 
+            {
+                $action->send($user->mobile);
+            }
         }
     }
 

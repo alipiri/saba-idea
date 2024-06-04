@@ -43,8 +43,12 @@ services:
     tty: true
     ports:
       - "3306:3306"
-    environment:
+      - "33060:33060"
+    environment: 
       MYSQL_DATABASE: saba_idea
+      MYSQL_USER: karen
+      MYSQL_AUTH_PLUGIN: mysql_native_password
+      MYSQL_PASSWORD: karen_piri
       MYSQL_ROOT_PASSWORD: k&M1348&1354
       SERVICE_TAGS: dev
       SERVICE_NAME: mysql

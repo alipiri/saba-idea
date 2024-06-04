@@ -16,7 +16,7 @@ class SendEmail implements SendNotificationInterface
         $this->email = $email;
     }
 
-    public function sendNotification()
+    public function send()
     {
         Mail::to($this->email)->send(new InvoiceMail());
     }

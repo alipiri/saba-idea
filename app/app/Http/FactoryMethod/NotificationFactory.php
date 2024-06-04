@@ -15,11 +15,14 @@ class NotificationFactory
 
         if ($type === 'sms')
         {
+            
             $this->send = new SendSms($address);
         }
         elseIf($type === 'email')
         {
             $this->send = new SendEmail($address);
         }
+
+        return $this->send;
     }
 }

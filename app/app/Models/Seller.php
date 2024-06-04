@@ -4,6 +4,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Seller extends Model
 {
@@ -12,18 +14,20 @@ class Seller extends Model
     protected $guarded = ['id'];
 
 
-    public function orderHeads()
+    public function orderHeads(): HasMany
     {
         return $this->hasMany(OrderHead::class);
     }
 
-    public function commissions()
-    {
-        return $this->orderHeads()->select(['id', 'commission', 'product_id']);
-    }
 
-    public function products()
+    public function products(): BelongsToMany
     {
         return $this->belongsToMany(Product::class);
+    }
+
+
+    public function commissions()
+    {
+        
     }
 }
